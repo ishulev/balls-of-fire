@@ -21,6 +21,14 @@
   },
   "devDependencies": {
     "gulp": "~3.9.0",
-    "gulp-util": "~3.0.6"
+    "gulp-util": "~3.0.6",
+    "jshint-stylish": "~2.0.1",
+    "gulp-jshint": "~1.11.2",
+    "gulp-sass": "~2.0.3",
+    "gulp-sourcemaps": "~1.5.2",
+    "gulp-jade": "~1.0.1",
+    "gulp-concat": "~2.6.0",
+    "gulp-express": "~0.3.5",
+    "connect-livereload": "~0.5.3"
   }
 }

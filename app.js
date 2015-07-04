@@ -1,12 +1,10 @@
 var express = require('express');
 var app = express();
 
-app.set('view engine', 'jade');
-app.set('views', __dirname + '/app');
+//Needed for the livereload. Could be avoided by using a browser plugin
+app.use(require('connect-livereload')());
+app.use(express.static('app'));
 
-app.get('/', function (req, res) {
-	res.render('index');
-});
 var server = app.listen(3000, function () {
 	var host = server.address().address;
 	var port = server.address().port;
