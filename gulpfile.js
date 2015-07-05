@@ -1,5 +1,7 @@
 // grab our gulp packages
 var gulp		= require('gulp'),
+	//Loads the individual gulp tasks from the gulp-tasks folder
+	//Documentation: http://macr.ae/article/splitting-gulpfile-multiple-files.html
 	requireDir	= require('require-dir')('./gulp-tasks'),
 	server		= require('gulp-express');
 
