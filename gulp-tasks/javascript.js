@@ -23,6 +23,7 @@ gulp
 		return gulp
 			.src([
 				config.angularDir + '/angular.js',
+				config.sourceDir + '/javascript/core.js',
 				config.sourceDir + '/javascript/**/*.js'])
 			.pipe(sourcemaps.init())
 			.pipe(concat('scripts.js'))

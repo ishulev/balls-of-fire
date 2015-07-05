@@ -1,7 +1,14 @@
-html
+html(ng-app="app" ng-strict-di)
 	head
 		link(href="/css/styles.css", rel="stylesheet")
 	body
-		h1 Olaaa234567891011
+		div.container
+			section.row(button-parent-directive)
+				div.col-sm-2.text-center
+					button.btn.btn-lg.btn-success(item-identifier=1 button-directive) About
+				div.col-sm-4.col-sm-offset-2.text-center
+					button.btn.btn-lg.btn-success(item-identifier=2 button-directive) Pic
+				div.col-sm-2.col-sm-offset-2.text-center
+					button.btn.btn-lg.btn-success(item-identifier=3 button-directive) About
 		footer
 			script(src="/javascript/scripts.js")
