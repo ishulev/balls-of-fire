@@ -21,6 +21,7 @@
 		function link(scope, element, attrs, buttParentController) {
 			element.on('click', function() {
 				buttParentController.active = scope.itemIdentifier;
+				
 				//Needed to let the parent scope know of the change and trigger the $watch
 				//Documentation: http://www.sitepoint.com/understanding-angulars-apply-digest/
 				scope.$apply();

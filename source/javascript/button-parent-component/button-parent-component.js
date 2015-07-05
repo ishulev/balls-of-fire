@@ -18,9 +18,63 @@
 		return directive;
 
 		function linkFunc(scope, el, attr, ctrl) {
-			scope.$watch('bpc.active', function(newVal){
-				// console.log(el.children);
-			});
+			scope.$watch('bpc.active', watchFunc);
+		}
+
+		function watchFunc(newValue, oldValue){
+			if(newValue == 1)
+			{
+				//Needs to be wrapped in angular.element(), because the element would not have the hasClass method
+				//Documentation: http://stackoverflow.com/a/22144182
+				if(oldValue == 2)
+				{
+					angular.element(el.children()[1]).toggleClass('col-sm-4');
+					angular.element(el.children()[1]).toggleClass('col-sm-2');
+					angular.element(el.children()[0]).toggleClass('col-sm-4');
+					angular.element(el.children()[0]).toggleClass('col-sm-2');
+				}
+				else if(oldValue == 3)
+				{
+					angular.element(el.children()[0]).toggleClass('col-sm-4');
+					angular.element(el.children()[0]).toggleClass('col-sm-2');
+					angular.element(el.children()[2]).toggleClass('col-sm-4');
+					angular.element(el.children()[2]).toggleClass('col-sm-2');	
+				}
+			}
+			else if(newValue == 2)
+			{
+				if(oldValue == 1)
+				{
+					angular.element(el.children()[1]).toggleClass('col-sm-4');
+					angular.element(el.children()[1]).toggleClass('col-sm-2');
+					angular.element(el.children()[0]).toggleClass('col-sm-4');
+					angular.element(el.children()[0]).toggleClass('col-sm-2');
+				}
+				else if(oldValue == 3)
+				{
+					angular.element(el.children()[1]).toggleClass('col-sm-4');
+					angular.element(el.children()[1]).toggleClass('col-sm-2');
+					angular.element(el.children()[2]).toggleClass('col-sm-4');
+					angular.element(el.children()[2]).toggleClass('col-sm-2');	
+				}
+			}
+			else if(newValue == 3)
+			{
+				if(oldValue == 1)
+				{
+					angular.element(el.children()[2]).toggleClass('col-sm-4');
+					angular.element(el.children()[2]).toggleClass('col-sm-2');
+					angular.element(el.children()[0]).toggleClass('col-sm-4');
+					angular.element(el.children()[0]).toggleClass('col-sm-2');
+				}
+				else if(oldValue == 2)
+				{
+					angular.element(el.children()[1]).toggleClass('col-sm-4');
+					angular.element(el.children()[1]).toggleClass('col-sm-2');
+					angular.element(el.children()[2]).toggleClass('col-sm-4');
+					angular.element(el.children()[2]).toggleClass('col-sm-2');	
+				}
+			}
 		}
 	}
 	controller.$inject = ['$scope'];
