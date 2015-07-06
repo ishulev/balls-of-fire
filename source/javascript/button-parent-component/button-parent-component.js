@@ -17,6 +17,17 @@
 		};
 		return directive;
 
+		function wrapElement(element){
+			return angular.element(element);
+		}
+
+		function toggleStructureClasses(element) {
+			element.toggleClass('col-sm-2');
+			element.toggleClass('col-sm-4');
+			wrapElement(element.children()[0]).toggleClass('active');
+			wrapElement(element.children()[0]).toggleClass('btn-lg');
+		}
+
 		function linkFunc(scope, el, attr, ctrl) {
 			scope.$watch('bpc.active', function(newValue, oldValue){
 				if(newValue == 1)
@@ -25,55 +36,39 @@
 					//Documentation: http://stackoverflow.com/a/22144182
 					if(oldValue == 2)
 					{
-						angular.element(el.children()[1]).toggleClass('col-sm-4');
-						angular.element(el.children()[1]).toggleClass('col-sm-2');
-						angular.element(el.children()[0]).toggleClass('col-sm-4');
-						angular.element(el.children()[0]).toggleClass('col-sm-2');
+						toggleStructureClasses(wrapElement(el.children()[1]));
+						toggleStructureClasses(wrapElement(el.children()[0]));
 					}
 					else if(oldValue == 3)
 					{
-						angular.element(el.children()[0]).toggleClass('col-sm-4');
-						angular.element(el.children()[0]).toggleClass('col-sm-2');
-						angular.element(el.children()[2]).toggleClass('col-sm-4');
-						angular.element(el.children()[2]).toggleClass('col-sm-2');	
+						toggleStructureClasses(wrapElement(el.children()[2]));
+						toggleStructureClasses(wrapElement(el.children()[0]));
 					}
 				}
 				else if(newValue == 2)
 				{
-					//Needs to be wrapped in angular.element(), because the element would not have the hasClass method
-					//Documentation: http://stackoverflow.com/a/22144182
 					if(oldValue == 1)
 					{
-						angular.element(el.children()[1]).toggleClass('col-sm-4');
-						angular.element(el.children()[1]).toggleClass('col-sm-2');
-						angular.element(el.children()[0]).toggleClass('col-sm-4');
-						angular.element(el.children()[0]).toggleClass('col-sm-2');
+						toggleStructureClasses(wrapElement(el.children()[1]));
+						toggleStructureClasses(wrapElement(el.children()[0]));
 					}
 					else if(oldValue == 3)
 					{
-						angular.element(el.children()[1]).toggleClass('col-sm-4');
-						angular.element(el.children()[1]).toggleClass('col-sm-2');
-						angular.element(el.children()[2]).toggleClass('col-sm-4');
-						angular.element(el.children()[2]).toggleClass('col-sm-2');	
+						toggleStructureClasses(wrapElement(el.children()[1]));
+						toggleStructureClasses(wrapElement(el.children()[2]));	
 					}
 				}
 				else if(newValue == 3)
 				{
-					//Needs to be wrapped in angular.element(), because the element would not have the hasClass method
-					//Documentation: http://stackoverflow.com/a/22144182
 					if(oldValue == 1)
 					{
-						angular.element(el.children()[2]).toggleClass('col-sm-4');
-						angular.element(el.children()[2]).toggleClass('col-sm-2');
-						angular.element(el.children()[0]).toggleClass('col-sm-4');
-						angular.element(el.children()[0]).toggleClass('col-sm-2');
+						toggleStructureClasses(wrapElement(el.children()[2]));
+						toggleStructureClasses(wrapElement(el.children()[0]));
 					}
 					else if(oldValue == 2)
 					{
-						angular.element(el.children()[1]).toggleClass('col-sm-4');
-						angular.element(el.children()[1]).toggleClass('col-sm-2');
-						angular.element(el.children()[2]).toggleClass('col-sm-4');
-						angular.element(el.children()[2]).toggleClass('col-sm-2');	
+						toggleStructureClasses(wrapElement(el.children()[1]));
+						toggleStructureClasses(wrapElement(el.children()[2]));	
 					}
 				}
 			});
