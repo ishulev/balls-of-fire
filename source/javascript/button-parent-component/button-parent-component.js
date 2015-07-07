@@ -24,21 +24,44 @@
 			return angular.element(element);
 		}
 
+		function toggleAestheticClasses(element) {
+			element.toggleClass('active');
+			element.toggleClass('btn-success');
+			element.toggleClass('btn-info');
+		}
+
+		function toggleVisibilityClasses(element) {
+			element.toggleClass('hidden');
+		}
+
 		function toggleStructureClasses(element) {
-			element.toggleClass('col-sm-2');
-			element.toggleClass('col-sm-4');
-			wrapElement(element.children()[0]).toggleClass('active');
-			wrapElement(element.children()[0]).toggleClass('btn-success');
-			wrapElement(element.children()[0]).toggleClass('btn-info');
+			element.toggleClass('col-xs-3');
+			element.toggleClass('col-xs-6');
 		}
 
 		function linkFunc(scope, el, attr, ctrl) {
 			scope.$watch('bpc.active', function(newValue, oldValue){
-				var currentlyActiveElement = wrapElement(el.children()[newValue - 1]);
-				var previouslyActiveElement = wrapElement(el.children()[oldValue - 1]);
+				//These are the main button parent elements
+				var currentlySelectedButtonParent = wrapElement(el.children()[newValue - 1]);
+				var previouslySelectedButtonParent = wrapElement(el.children()[oldValue - 1]);
+
+				//Actual buttons
+				var currentActiveButton = wrapElement(currentlySelectedButtonParent.children()[0]);
+				var previousActiveButton = wrapElement(previouslySelectedButtonParent.children()[0]);
+
+				//Content below buttons, which is a sibling to the button in DOM language
+				var contentToBeDisplayed = wrapElement(currentlySelectedButtonParent.children()[1]);
+				var contentToBeHidden = wrapElement(previouslySelectedButtonParent.children()[1]);
 				
-				toggleStructureClasses(currentlyActiveElement);
-				toggleStructureClasses(previouslyActiveElement);
+				//Call functions for each of the assigned elements
+				toggleStructureClasses(currentlySelectedButtonParent);
+				toggleStructureClasses(previouslySelectedButtonParent);
+
+				toggleAestheticClasses(currentActiveButton);
+				toggleAestheticClasses(previousActiveButton);
+
+				toggleVisibilityClasses(contentToBeDisplayed);
+				toggleVisibilityClasses(contentToBeHidden);
 			});
 		}
 	}

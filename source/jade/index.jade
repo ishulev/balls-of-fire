@@ -4,11 +4,50 @@ html(ng-app="app" ng-strict-di)
 	body
 		div.container
 			section.row(button-parent-directive)
-				div.col-sm-2.text-center
+				div.col-xs-3.text-center
 					button.btn.btn-lg.btn-success(item-identifier=1 button-directive) About
-				div.col-sm-4.col-sm-offset-2.text-center
-					button.btn.btn-lg.btn-success.active(item-identifier=2 button-directive) Pic
-				div.col-sm-2.col-sm-offset-2.text-center
+					section.row.hidden(button-parent-directive)
+						div.col-xs-3
+							button.btn.btn-circle.btn-success(item-identifier=1 button-directive) Btn #1
+							section.row.hidden
+								h2 Test
+						div.col-xs-6
+							button.btn.btn-circle.btn-info.active(item-identifier=2 button-directive) Btn #2
+							section.row
+								h2 Test
+						div.col-xs-3
+							button.btn.btn-circle.btn-success(item-identifier=3 button-directive) Btn #3
+							section.row.hidden
+								h2 Test
+				div.col-xs-6.text-center
+					button.btn.btn-lg.btn-info.active(item-identifier=2 button-directive) Pic
+					section.row(button-parent-directive)
+						div.col-xs-3
+							button.btn.btn-circle.btn-success(item-identifier=1 button-directive) Btn #1
+							section.row.hidden
+								h2 Test
+						div.col-xs-6
+							button.btn.btn-circle.btn-info.active(item-identifier=2 button-directive) Btn #2
+							section.row
+								h2 Test
+						div.col-xs-3
+							button.btn.btn-circle.btn-success(item-identifier=3 button-directive) Btn #3
+							section.row.hidden
+								h2 Test
+				div.col-xs-3.text-center
 					button.btn.btn-lg.btn-success(item-identifier=3 button-directive) About
+					section.row.hidden(button-parent-directive)
+						div.col-xs-3
+							button.btn.btn-circle.btn-success(item-identifier=1 button-directive) Btn #1
+							section.row.hidden
+								h2 Test
+						div.col-xs-6
+							button.btn.btn-circle.btn-info.active(item-identifier=2 button-directive) Btn #2
+							section.row
+								h2 Test
+						div.col-xs-3
+							button.btn.btn-circle.btn-success(item-identifier=3 button-directive) Btn #3
+							section.row.hidden
+								h2 Test
 		footer
 			script(src="/javascript/scripts.js")
