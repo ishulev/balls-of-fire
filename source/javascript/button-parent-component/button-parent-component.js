@@ -18,6 +18,9 @@
 		return directive;
 
 		function wrapElement(element){
+			//Needs to be wrapped in angular.element(), because the element would not have the hasClass method
+			//Documentation: http://stackoverflow.com/a/22144182
+			//Hint: jqLite does not recognize the element as easy as jQuery would /Still needs research/
 			return angular.element(element);
 		}
 
@@ -25,52 +28,17 @@
 			element.toggleClass('col-sm-2');
 			element.toggleClass('col-sm-4');
 			wrapElement(element.children()[0]).toggleClass('active');
-			wrapElement(element.children()[0]).toggleClass('btn-lg');
+			wrapElement(element.children()[0]).toggleClass('btn-success');
+			wrapElement(element.children()[0]).toggleClass('btn-info');
 		}
 
 		function linkFunc(scope, el, attr, ctrl) {
 			scope.$watch('bpc.active', function(newValue, oldValue){
-				if(newValue == 1)
-				{
-					//Needs to be wrapped in angular.element(), because the element would not have the hasClass method
-					//Documentation: http://stackoverflow.com/a/22144182
-					if(oldValue == 2)
-					{
-						toggleStructureClasses(wrapElement(el.children()[1]));
-						toggleStructureClasses(wrapElement(el.children()[0]));
-					}
-					else if(oldValue == 3)
-					{
-						toggleStructureClasses(wrapElement(el.children()[2]));
-						toggleStructureClasses(wrapElement(el.children()[0]));
-					}
-				}
-				else if(newValue == 2)
-				{
-					if(oldValue == 1)
-					{
-						toggleStructureClasses(wrapElement(el.children()[1]));
-						toggleStructureClasses(wrapElement(el.children()[0]));
-					}
-					else if(oldValue == 3)
-					{
-						toggleStructureClasses(wrapElement(el.children()[1]));
-						toggleStructureClasses(wrapElement(el.children()[2]));	
-					}
-				}
-				else if(newValue == 3)
-				{
-					if(oldValue == 1)
-					{
-						toggleStructureClasses(wrapElement(el.children()[2]));
-						toggleStructureClasses(wrapElement(el.children()[0]));
-					}
-					else if(oldValue == 2)
-					{
-						toggleStructureClasses(wrapElement(el.children()[1]));
-						toggleStructureClasses(wrapElement(el.children()[2]));	
-					}
-				}
+				var currentlyActiveElement = wrapElement(el.children()[newValue - 1]);
+				var previouslyActiveElement = wrapElement(el.children()[oldValue - 1]);
+				
+				toggleStructureClasses(currentlyActiveElement);
+				toggleStructureClasses(previouslyActiveElement);
 			});
 		}
 	}
