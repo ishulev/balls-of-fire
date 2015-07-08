@@ -4,14 +4,14 @@ html(ng-app="app" ng-strict-di)
 	body
 		div.container
 			section.row(button-parent-directive)
-				div.col-xs-3.text-center
-					button.btn.btn-lg.btn-success(item-identifier=1 button-directive) About
+				div.col-xs-3.text-center.added-margin
+					button.btn.btn-lg.btn-success(item-identifier=1 button-directive) Skills & Interests
 					section.row.hidden(button-parent-directive)
 						div.col-xs-3
 							button.btn.btn-circle.btn-success(item-identifier=1 button-directive) Btn #1
 							section.row.hidden
 								h2 Test
-						div.col-xs-6
+						div.col-xs-6.added-margin
 							button.btn.btn-circle.btn-info.active(item-identifier=2 button-directive) Btn #2
 							section.row
 								h2 Test
@@ -34,7 +34,7 @@ html(ng-app="app" ng-strict-di)
 							button.btn.btn-circle.btn-success(item-identifier=3 button-directive) Btn #3
 							section.row.hidden
 								h2 Test
-				div.col-xs-3.text-center
+				div.col-xs-3.text-center.added-margin
 					button.btn.btn-lg.btn-success(item-identifier=3 button-directive) About
 					section.row.hidden(button-parent-directive)
 						div.col-xs-3

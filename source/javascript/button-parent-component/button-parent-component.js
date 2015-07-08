@@ -37,6 +37,7 @@
 		function toggleStructureClasses(element) {
 			element.toggleClass('col-xs-3');
 			element.toggleClass('col-xs-6');
+			element.toggleClass('added-margin');
 		}
 
 		function linkFunc(scope, el, attr, ctrl) {
