@@ -42,27 +42,56 @@
 
 		function linkFunc(scope, el, attr, ctrl) {
 			scope.$watch('bpc.active', function(newValue, oldValue){
-				//These are the main button parent elements
-				var currentlySelectedButtonParent = wrapElement(el.children()[newValue - 1]);
-				var previouslySelectedButtonParent = wrapElement(el.children()[oldValue - 1]);
+				if(newValue !== oldValue)
+				{
 
-				//Actual buttons
-				var currentActiveButton = wrapElement(currentlySelectedButtonParent.children()[0]);
-				var previousActiveButton = wrapElement(previouslySelectedButtonParent.children()[0]);
+					//These are the main button parent elements
+					var currentlySelectedButtonParent = wrapElement(el.children()[newValue - 1]);
+					var previouslySelectedButtonParent = wrapElement(el.children()[oldValue - 1]);
 
-				//Content below buttons, which is a sibling to the button in DOM language
-				var contentToBeDisplayed = wrapElement(currentlySelectedButtonParent.children()[1]);
-				var contentToBeHidden = wrapElement(previouslySelectedButtonParent.children()[1]);
-				
-				//Call functions for each of the assigned elements
-				toggleStructureClasses(currentlySelectedButtonParent);
-				toggleStructureClasses(previouslySelectedButtonParent);
+					//Actual buttons
+					var currentActiveButton = wrapElement(currentlySelectedButtonParent.children()[0]);
+					var previousActiveButton = wrapElement(previouslySelectedButtonParent.children()[0]);
 
-				toggleAestheticClasses(currentActiveButton);
-				toggleAestheticClasses(previousActiveButton);
+					//Content below buttons, which is a sibling to the button in DOM language
+					var contentToBeDisplayed = wrapElement(currentlySelectedButtonParent.children()[1]);
+					var contentToBeHidden = wrapElement(previouslySelectedButtonParent.children()[1]);
+					
+					//Call functions for each of the assigned elements
+					if(currentlySelectedButtonParent.hasClass('col-xs-4'))
+					{
+						currentlySelectedButtonParent.toggleClass('col-xs-4');
+						currentlySelectedButtonParent.toggleClass('col-xs-6');
+						currentlySelectedButtonParent.toggleClass('added-margin');
+						
+						toggleAestheticClasses(currentActiveButton);
+						toggleVisibilityClasses(contentToBeDisplayed);
 
-				toggleVisibilityClasses(contentToBeDisplayed);
-				toggleVisibilityClasses(contentToBeHidden);
+						var siblingParents = currentlySelectedButtonParent.parent().children();
+						for(var i=0; i< siblingParents.length; i++)
+						{
+							var element = wrapElement(siblingParents[i]);
+							if(!element.hasClass('added-margin'))
+							{
+								element.toggleClass('col-xs-4');
+								element.toggleClass('col-xs-3');
+							}
+						}
+					}
+					else
+					{
+						toggleStructureClasses(currentlySelectedButtonParent);
+						toggleStructureClasses(previouslySelectedButtonParent);
+
+						toggleAestheticClasses(currentActiveButton);
+						toggleAestheticClasses(previousActiveButton);
+
+						toggleVisibilityClasses(contentToBeDisplayed);
+						toggleVisibilityClasses(contentToBeHidden);
+						
+					}
+
+				}
 			});
 		}
 	}
