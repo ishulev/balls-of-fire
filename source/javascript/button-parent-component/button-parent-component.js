@@ -36,7 +36,9 @@
 
 		function addClassPrefix(structureClasses, classPrefix)
 		{
-
+			structureClasses.initialStructureClassToToggle = classPrefix.concat(structureClasses.initialStructureClassToToggle.toString());
+			structureClasses.defaultStructureClassToToggle = classPrefix.concat(structureClasses.defaultStructureClassToToggle.toString());
+			structureClasses.activeStructureClassToToggle = classPrefix.concat(structureClasses.activeStructureClassToToggle.toString());
 		}
 
 		function calculateStructureClasses(numberOfStructureElements)
