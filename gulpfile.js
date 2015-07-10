@@ -23,4 +23,4 @@ gulp.task('watch', function() {
 });
 
 // create a default task and just log a message
-gulp.task('default', ['html-build', 'css-build', 'js-build', 'server-start', 'watch']);
+gulp.task('default', ['html-build', 'css-build', 'js-build', 'images', 'server-start', 'watch']);
