@@ -2,6 +2,7 @@
 var concat		= require('gulp-concat'),
 	gulp		= require('gulp'),
 	jade		= require('gulp-jade'),
+	path		= require('path'),
 	sourcemaps	= require('gulp-sourcemaps');
 
 var config = {
@@ -11,7 +12,7 @@ var config = {
 
 gulp.task('html-build', function() {
 	return gulp
-		.src(config.sourceDir + '/jade/**/*.jade')
+		.src(path.join(config.sourceDir, 'jade/**/*.jade'))
 		.pipe(jade())
 		.pipe(concat('index.html'))
 		.pipe(sourcemaps.write())
