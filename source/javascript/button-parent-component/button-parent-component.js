@@ -39,6 +39,8 @@
 			structureClasses.initialStructureClassToToggle = classPrefix.concat(structureClasses.initialStructureClassToToggle.toString());
 			structureClasses.defaultStructureClassToToggle = classPrefix.concat(structureClasses.defaultStructureClassToToggle.toString());
 			structureClasses.activeStructureClassToToggle = classPrefix.concat(structureClasses.activeStructureClassToToggle.toString());
+
+			return structureClasses;
 		}
 
 		function calculateStructureClasses(numberOfStructureElements)
@@ -99,14 +101,15 @@
 					var currentlySelectedButtonParent = wrapElement(el.children()[newValue - 1]);
 					var previouslySelectedButtonParent = wrapElement(el.children()[oldValue - 1]);
 					
+					var classPrefix = "col-xs-";
 
 					//Determine the number of children in order to estimate the structure toggle class
 					var numberOfStructureElements = wrapElement(currentlySelectedButtonParent.parent()).children().length;
 					var structureClassesToToggle = calculateStructureClasses(numberOfStructureElements);
+					structureClassesToToggle = addClassPrefix(structureClasses, classPrefix);
 
 					//Determine whether this is the first time an element from that group has been clicked
 					var firstClick = false;
-					var classPrefix = "col-xs-";
 					var classToCheckIfFirst = classPrefix.concat((12/numberOfStructureElements).toString());
 					if(currentlySelectedButtonParent.hasClass(classToCheckIfFirst))
 						firstClick = true;
