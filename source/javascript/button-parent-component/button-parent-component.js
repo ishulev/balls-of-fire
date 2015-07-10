@@ -42,12 +42,43 @@
 
 		function linkFunc(scope, el, attr, ctrl) {
 			scope.$watch('bpc.active', function(newValue, oldValue){
+				//The two values are equal on directive init
 				if(newValue !== oldValue)
 				{
-
 					//These are the main button parent elements
 					var currentlySelectedButtonParent = wrapElement(el.children()[newValue - 1]);
 					var previouslySelectedButtonParent = wrapElement(el.children()[oldValue - 1]);
+					
+
+					//Determine the number of children in order to estimate the structure toggle class
+					var numberOfStructureElements = wrapElement(currentlySelectedButtonParent.parent()).children().length;
+					var structureClassesToToggle = {};
+					switch(numberOfStructureElements){
+						case 2:
+							structureClassesToToggle.initialStructureClassToToggle = 6;
+							structureClassesToToggle.defaultStructureClassToToggle = 4;
+							structureClassesToToggle.activeStructureClassToToggle = 8;
+							break;
+						case 3:
+							structureClassesToToggle.initialStructureClassToToggle = 4;
+							structureClassesToToggle.defaultStructureClassToToggle = 3;
+							structureClassesToToggle.activeStructureClassToToggle = 6;
+							break;
+						case 4:
+							structureClassesToToggle.initialStructureClassToToggle = 3;
+							structureClassesToToggle.defaultStructureClassToToggle = 2;
+							structureClassesToToggle.activeStructureClassToToggle = 6;
+							break;
+						default: 
+							console.log('Messy HTML!');
+					}
+
+					//Determine whether this is the first time an element from that group has been clicked
+					var firstClick = false;
+					var classPrefix = "col-xs-";
+					var classToCheckIfFirst = classPrefix.concat((12/numberOfStructureElements).toString());
+					if(currentlySelectedButtonParent.hasClass(classToCheckIfFirst))
+						firstClick = true;
 
 					//Actual buttons
 					var currentActiveButton = wrapElement(currentlySelectedButtonParent.children()[0]);
@@ -58,10 +89,10 @@
 					var contentToBeHidden = wrapElement(previouslySelectedButtonParent.children()[1]);
 					
 					//Call functions for each of the assigned elements
-					if(currentlySelectedButtonParent.hasClass('col-xs-4'))
+					if(firstClick)
 					{
-						currentlySelectedButtonParent.toggleClass('col-xs-4');
-						currentlySelectedButtonParent.toggleClass('col-xs-6');
+						currentlySelectedButtonParent.toggleClass(classPrefix.concat(structureClassesToToggle.initialStructureClassToToggle.toString()));
+						currentlySelectedButtonParent.toggleClass(classPrefix.concat(structureClassesToToggle.activeStructureClassToToggle.toString()));
 						currentlySelectedButtonParent.toggleClass('added-margin');
 						
 						toggleAestheticClasses(currentActiveButton);
