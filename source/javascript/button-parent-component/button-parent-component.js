@@ -69,26 +69,31 @@
 			return structureClassesToToggle;
 		}
 
-		function toggleStructureClasses(elements, structureClasses, firstClick) {
+		function toggleStructureClasses(elements, structureClassesToToggle, firstClick) {
 			if(firstClick)
 			{
-				elements.currentlySelectedButtonParent.toggleClass(classPrefix.concat(structureClassesToToggle.initialStructureClassToToggle.toString()));
-				elements.currentlySelectedButtonParent.toggleClass(classPrefix.concat(structureClassesToToggle.activeStructureClassToToggle.toString()));
+				elements.currentlySelectedButtonParent.toggleClass(structureClassesToToggle.initialStructureClassToToggle);
+				elements.currentlySelectedButtonParent.toggleClass(structureClassesToToggle.activeStructureClassToToggle);
 				elements.currentlySelectedButtonParent.toggleClass('added-margin');
 
 				for(var i=0; i < elements.buttonParentElements.length; i++)
 				{
-					var element = wrapElement(elements.buttonParentElements[i];
+					var element = wrapElement(elements.buttonParentElements[i]);
 					if(!element.hasClass('added-margin'))
 					{
-						element.toggleClass(structureClasses.initialStructureClassToToggle);
-						element.toggleClass(structureClasses.defaultStructureClassToToggle);
+						element.toggleClass(structureClassesToToggle.initialStructureClassToToggle);
+						element.toggleClass(structureClassesToToggle.defaultStructureClassToToggle);
 					}
 				}
 			}
 			else
 			{
-				elements.currentlySelectedButtonParent.toggleClass()
+				elements.currentlySelectedButtonParent.toggleClass(structureClassesToToggle.activeStructureClassToToggle);
+				elements.currentlySelectedButtonParent.toggleClass(structureClassesToToggle.defaultStructureClassToToggle);
+				elements.currentlySelectedButtonParent.toggleClass('added-margin');
+				elements.previouslySelectedButtonParent.toggleClass(structureClassesToToggle.activeStructureClassToToggle);
+				elements.previouslySelectedButtonParent.toggleClass(structureClassesToToggle.defaultStructureClassToToggle);
+				elements.previouslySelectedButtonParent.toggleClass('added-margin');
 			}
 		}
 
@@ -102,11 +107,15 @@
 					var previouslySelectedButtonParent = wrapElement(el.children()[oldValue - 1]);
 					
 					var classPrefix = "col-xs-";
+					var elements = {};
+					elements.currentlySelectedButtonParent = currentlySelectedButtonParent;
+					elements.previouslySelectedButtonParent = previouslySelectedButtonParent;
+					elements.buttonParentElements = wrapElement(currentlySelectedButtonParent.parent()).children();
 
 					//Determine the number of children in order to estimate the structure toggle class
-					var numberOfStructureElements = wrapElement(currentlySelectedButtonParent.parent()).children().length;
+					var numberOfStructureElements = elements.buttonParentElements.length;
 					var structureClassesToToggle = calculateStructureClasses(numberOfStructureElements);
-					structureClassesToToggle = addClassPrefix(structureClasses, classPrefix);
+					structureClassesToToggle = addClassPrefix(structureClassesToToggle, classPrefix);
 
 					//Determine whether this is the first time an element from that group has been clicked
 					var firstClick = false;
@@ -123,9 +132,10 @@
 					var contentToBeHidden = wrapElement(previouslySelectedButtonParent.children()[1]);
 					
 					//Call functions for each of the assigned elements
+					toggleStructureClasses(elements, structureClassesToToggle, firstClick);
+					
 					if(firstClick)
 					{
-						toggleStructureClasses(buttonParentElements, )
 						
 						toggleAestheticClasses(currentActiveButton);
 						toggleVisibilityClasses(contentToBeDisplayed);
@@ -133,9 +143,6 @@
 					}
 					else
 					{
-						toggleStructureClasses(currentlySelectedButtonParent);
-						toggleStructureClasses(previouslySelectedButtonParent);
-
 						toggleAestheticClasses(currentActiveButton);
 						toggleAestheticClasses(previousActiveButton);
 
