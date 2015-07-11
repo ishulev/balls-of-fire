@@ -34,10 +34,67 @@
 			element.toggleClass('hidden');
 		}
 
-		function toggleStructureClasses(element) {
-			element.toggleClass('col-xs-3');
-			element.toggleClass('col-xs-6');
-			element.toggleClass('added-margin');
+		function addClassPrefix(structureClasses, classPrefix)
+		{
+			structureClasses.initialStructureClassToToggle = classPrefix.concat(structureClasses.initialStructureClassToToggle.toString());
+			structureClasses.defaultStructureClassToToggle = classPrefix.concat(structureClasses.defaultStructureClassToToggle.toString());
+			structureClasses.activeStructureClassToToggle = classPrefix.concat(structureClasses.activeStructureClassToToggle.toString());
+
+			return structureClasses;
+		}
+
+		function calculateStructureClasses(numberOfStructureElements)
+		{
+			var structureClassesToToggle = {};
+			switch(numberOfStructureElements){
+				case 2:
+					structureClassesToToggle.initialStructureClassToToggle = 6;
+					structureClassesToToggle.defaultStructureClassToToggle = 4;
+					structureClassesToToggle.activeStructureClassToToggle = 8;
+					break;
+				case 3:
+					structureClassesToToggle.initialStructureClassToToggle = 4;
+					structureClassesToToggle.defaultStructureClassToToggle = 3;
+					structureClassesToToggle.activeStructureClassToToggle = 6;
+					break;
+				case 4:
+					structureClassesToToggle.initialStructureClassToToggle = 3;
+					structureClassesToToggle.defaultStructureClassToToggle = 2;
+					structureClassesToToggle.activeStructureClassToToggle = 6;
+					break;
+				default: 
+					console.log('Messy HTML!');
+			}
+
+			return structureClassesToToggle;
+		}
+
+		function toggleStructureClasses(elements, structureClassesToToggle, firstClick) {
+			if(firstClick)
+			{
+				elements.currentlySelectedButtonParent.toggleClass(structureClassesToToggle.initialStructureClassToToggle);
+				elements.currentlySelectedButtonParent.toggleClass(structureClassesToToggle.activeStructureClassToToggle);
+				elements.currentlySelectedButtonParent.toggleClass('added-margin');
+
+				for(var i=0; i < elements.buttonParentElements.length; i++)
+				{
+					var element = wrapElement(elements.buttonParentElements[i]);
+					if(!element.hasClass('added-margin'))
+					{
+						element.toggleClass(structureClassesToToggle.initialStructureClassToToggle);
+						element.toggleClass(structureClassesToToggle.defaultStructureClassToToggle);
+					}
+				}
+			}
+			else
+			{
+				elements.currentlySelectedButtonParent.toggleClass(structureClassesToToggle.activeStructureClassToToggle);
+				elements.currentlySelectedButtonParent.toggleClass(structureClassesToToggle.defaultStructureClassToToggle);
+				elements.currentlySelectedButtonParent.toggleClass('added-margin');
+				elements.previouslySelectedButtonParent.toggleClass(structureClassesToToggle.activeStructureClassToToggle);
+				elements.previouslySelectedButtonParent.toggleClass(structureClassesToToggle.defaultStructureClassToToggle);
+				elements.previouslySelectedButtonParent.toggleClass('added-margin');
+			}
 		}
 
 		function linkFunc(scope, el, attr, ctrl) {
@@ -49,33 +106,19 @@
 					var currentlySelectedButtonParent = wrapElement(el.children()[newValue - 1]);
 					var previouslySelectedButtonParent = wrapElement(el.children()[oldValue - 1]);
 					
+					var classPrefix = "col-xs-";
+					var elements = {};
+					elements.currentlySelectedButtonParent = currentlySelectedButtonParent;
+					elements.previouslySelectedButtonParent = previouslySelectedButtonParent;
+					elements.buttonParentElements = wrapElement(currentlySelectedButtonParent.parent()).children();
 
 					//Determine the number of children in order to estimate the structure toggle class
-					var numberOfStructureElements = wrapElement(currentlySelectedButtonParent.parent()).children().length;
-					var structureClassesToToggle = {};
-					switch(numberOfStructureElements){
-						case 2:
-							structureClassesToToggle.initialStructureClassToToggle = 6;
-							structureClassesToToggle.defaultStructureClassToToggle = 4;
-							structureClassesToToggle.activeStructureClassToToggle = 8;
-							break;
-						case 3:
-							structureClassesToToggle.initialStructureClassToToggle = 4;
-							structureClassesToToggle.defaultStructureClassToToggle = 3;
-							structureClassesToToggle.activeStructureClassToToggle = 6;
-							break;
-						case 4:
-							structureClassesToToggle.initialStructureClassToToggle = 3;
-							structureClassesToToggle.defaultStructureClassToToggle = 2;
-							structureClassesToToggle.activeStructureClassToToggle = 6;
-							break;
-						default: 
-							console.log('Messy HTML!');
-					}
+					var numberOfStructureElements = elements.buttonParentElements.length;
+					var structureClassesToToggle = calculateStructureClasses(numberOfStructureElements);
+					structureClassesToToggle = addClassPrefix(structureClassesToToggle, classPrefix);
 
 					//Determine whether this is the first time an element from that group has been clicked
 					var firstClick = false;
-					var classPrefix = "col-xs-";
 					var classToCheckIfFirst = classPrefix.concat((12/numberOfStructureElements).toString());
 					if(currentlySelectedButtonParent.hasClass(classToCheckIfFirst))
 						firstClick = true;
@@ -89,31 +132,17 @@
 					var contentToBeHidden = wrapElement(previouslySelectedButtonParent.children()[1]);
 					
 					//Call functions for each of the assigned elements
+					toggleStructureClasses(elements, structureClassesToToggle, firstClick);
+					
 					if(firstClick)
 					{
-						currentlySelectedButtonParent.toggleClass(classPrefix.concat(structureClassesToToggle.initialStructureClassToToggle.toString()));
-						currentlySelectedButtonParent.toggleClass(classPrefix.concat(structureClassesToToggle.activeStructureClassToToggle.toString()));
-						currentlySelectedButtonParent.toggleClass('added-margin');
 						
 						toggleAestheticClasses(currentActiveButton);
 						toggleVisibilityClasses(contentToBeDisplayed);
 
-						var siblingParents = currentlySelectedButtonParent.parent().children();
-						for(var i=0; i< siblingParents.length; i++)
-						{
-							var element = wrapElement(siblingParents[i]);
-							if(!element.hasClass('added-margin'))
-							{
-								element.toggleClass('col-xs-4');
-								element.toggleClass('col-xs-3');
-							}
-						}
 					}
 					else
 					{
-						toggleStructureClasses(currentlySelectedButtonParent);
-						toggleStructureClasses(previouslySelectedButtonParent);
-
 						toggleAestheticClasses(currentActiveButton);
 						toggleAestheticClasses(previousActiveButton);
 
