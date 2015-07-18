@@ -4,20 +4,12 @@ var gulp		= require('gulp'),
 	//Documentation: http://macr.ae/article/splitting-gulpfile-multiple-files.html
 	requireDir	= require('require-dir')('./gulp-tasks'),
 	path		= require('path'),
-	server		= require('gulp-express'),
-	fc2json		= require('gulp-file-contents-to-json');
+	server		= require('gulp-express');
 
 var config = {
 	publicDir: './app',
 	sourceDir: './source'
 };
-
-gulp.task('to-json', function(){
-	gulp
-		.src('./app/index.html')
-		.pipe(fc2json('contents.json'))
-		.pipe(gulp.dest(path.join(config.publicDir, 'data')));
-});
 
 gulp.task('server-start', function() {
 	server.run();
