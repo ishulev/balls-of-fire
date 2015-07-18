@@ -26,7 +26,7 @@
 			}
 
 			function getDataFailed(error) {
-				console.log('XHR Failed for getAvengers.' + error.data);
+				console.log('XHR Failed for getData.' + error.data);
 			}
 		}
 	}

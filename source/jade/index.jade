@@ -5,26 +5,26 @@ html(ng-app="app" ng-strict-di)
 		div.container
 			section.row(button-parent-directive)
 				div.col-xs-4.text-center
-					button.btn.btn-lg.btn-success(item-identifier=1 button-directive) Skills & Interests
+					button.btn.btn-lg.btn-success(item-identifier=1 button-directive) Interests
 					section.row.hidden(button-parent-directive)
 						div.col-xs-3
-							button.btn.btn-circle.btn-success(item-identifier=1 button-directive) Btn #1
+							button.btn.btn-success(item-identifier=1 button-directive) Workflow
+							section.row.hidden.text-justify.text-holder
+								div.col-xs-12(content-directive item-identifier="workflow")
+						div.col-xs-3
+							button.btn.btn-success(item-identifier=2 button-directive) Front-end
+							section.row.hidden.text-justify.text-holder
+								div.col-xs-12(content-directive item-identifier="frontend")
+						div.col-xs-3
+							button.btn.btn-success(item-identifier=3 button-directive) Btn #3
 							section.row.hidden
 								h2 Test
 						div.col-xs-3
-							button.btn.btn-circle.btn-success(item-identifier=2 button-directive) Btn #2
-							section.row.hidden
-								h2 Test
-						div.col-xs-3
-							button.btn.btn-circle.btn-success(item-identifier=3 button-directive) Btn #3
-							section.row.hidden
-								h2 Test
-						div.col-xs-3
-							button.btn.btn-circle.btn-success(item-identifier=4 button-directive) Btn #4
+							button.btn.btn-success(item-identifier=4 button-directive) Btn #4
 							section.row.hidden
 								h2 Test
 				div.col-xs-4.text-center
-					button.btn.btn-lg.btn-success(item-identifier=2 button-directive) Pic
+					img.img-circle(src="/images/profile_photo_phabulous.jpg" item-identifier=2 button-directive)
 					section.row.hidden(button-parent-directive)
 						div.col-xs-6
 							button.btn.btn-circle.btn-success(item-identifier=1 button-directive) Btn #1
@@ -35,7 +35,7 @@ html(ng-app="app" ng-strict-di)
 							section.row.hidden
 								h2 Test
 				div.col-xs-4.text-center
-					button.btn.btn-lg.btn-success(item-identifier=3 button-directive) About
+					button.btn.btn-lg.btn-success(item-identifier=3 button-directive) Skills
 					section.row.hidden(button-parent-directive)
 						div.col-xs-4
 							button.btn.btn-circle.btn-success(item-identifier=1 button-directive) Btn #1
