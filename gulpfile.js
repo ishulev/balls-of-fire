@@ -5,7 +5,7 @@ var gulp		= require('gulp'),
 	requireDir	= require('require-dir')('./gulp-tasks'),
 	path		= require('path'),
 	server		= require('gulp-express'),
-	htmlToJson	= require('gulp-html-to-json');
+	fc2json		= require('gulp-file-contents-to-json');
 
 var config = {
 	publicDir: './app',
@@ -15,9 +15,7 @@ var config = {
 gulp.task('to-json', function(){
 	gulp
 		.src('./app/index.html')
-		.pipe(htmlToJson({
-			filename: "test"
-		}))
+		.pipe(fc2json('contents.json'))
 		.pipe(gulp.dest(path.join(config.publicDir, 'data')));
 });
 
