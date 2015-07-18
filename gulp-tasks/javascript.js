@@ -9,6 +9,7 @@ var concat		= require('gulp-concat'),
 
 var config = {
 	angularDir: './bower_components/angular',
+	angularSanitizeDir: './bower_components/angular-sanitize',
 	publicDir: './app',
 	sourceDir: './source'
 };
@@ -24,6 +25,7 @@ gulp
 		return gulp
 			.src([
 				path.join(config.angularDir, 'angular.js'),
+				path.join(config.angularSanitizeDir, 'angular-sanitize.js'),
 				path.join(config.sourceDir, 'javascript/core.js'),
 				path.join(config.sourceDir, 'javascript/**/*.js')])
 			.pipe(sourcemaps.init())

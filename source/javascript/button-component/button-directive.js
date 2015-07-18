@@ -6,8 +6,9 @@
 	angular
 		.module('app')
 		.directive('buttonDirective', buttonDirectiveFunction);
+	buttonDirectiveFunction.$inject = ['$rootScope'];
 
-	function buttonDirectiveFunction() {
+	function buttonDirectiveFunction($rootScope) {
 		var directive = {
 			restict: 'EA',
 			link: link,
@@ -21,7 +22,13 @@
 		function link(scope, element, attrs, buttParentController) {
 			element.on('click', function() {
 				buttParentController.active = scope.itemIdentifier;
-				
+				if(attrs.contentToBeDisplayed)
+				{
+					var contentVariables = {};
+					contentVariables.contentToBeDisplayed = attrs.contentToBeDisplayed;
+					contentVariables.contentCategory = attrs.contentCategory;
+					$rootScope.$emit('contentToBeDisplayed', contentVariables);
+				}
 				//Needed to let the parent scope know of the change and trigger the $watch
 				//Documentation: http://www.sitepoint.com/understanding-angulars-apply-digest/
 				scope.$apply();

@@ -10,7 +10,7 @@ var config = {
 
 gulp.task('images', function() {
 	return gulp
-		.src(path.join(config.sourceDir, 'images/*.svg'))
+		.src(path.join(config.sourceDir, 'images/*'))
 		.pipe(imagemin({optimizationLevel: 5}))
 		.pipe(gulp.dest(path.join(config.publicDir, 'images')));
 });

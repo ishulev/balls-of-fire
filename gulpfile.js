@@ -4,12 +4,22 @@ var gulp		= require('gulp'),
 	//Documentation: http://macr.ae/article/splitting-gulpfile-multiple-files.html
 	requireDir	= require('require-dir')('./gulp-tasks'),
 	path		= require('path'),
-	server		= require('gulp-express');
+	server		= require('gulp-express'),
+	htmlToJson	= require('gulp-html-to-json');
 
 var config = {
 	publicDir: './app',
 	sourceDir: './source'
 };
+
+gulp.task('to-json', function(){
+	gulp
+		.src('./app/index.html')
+		.pipe(htmlToJson({
+			filename: "test"
+		}))
+		.pipe(gulp.dest(path.join(config.publicDir, 'data')));
+});
 
 gulp.task('server-start', function() {
 	server.run();
@@ -24,4 +34,4 @@ gulp.task('watch', function() {
 });
 
 // create a default task and just log a message
-gulp.task('default', ['html-build', 'css-build', 'js-build', 'images', 'server-start', 'watch']);
+gulp.task('default', ['html-build', 'css-build', 'js-build', 'images', 'data', 'server-start', 'watch']);
