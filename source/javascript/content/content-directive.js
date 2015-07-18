@@ -13,10 +13,7 @@
 			restict: 'EA',
 			controller: Controller,
 			controllerAs: 'vm',
-			template: '<span ng-bind-html="vm.data"></span>',
-			scope: {
-				itemIdentifier: '@'
-			}
+			template: '<span ng-bind-html="vm.data"></span>'
 		};
 		return directive;
 	}
@@ -25,18 +22,21 @@
 
 	function Controller($scope, contentFactory) {
 		var vm = this;
-		vm.data = {};
+		var allData = {};
 
-		getData();
-
-		function getData()
-		{
+		function getAllData(){
 			return contentFactory
 				.getData()
 				.then(function(data) {
-					var itemIdentifier = $scope.itemIdentifier;
-					vm.data = data.interests[itemIdentifier];
+					allData = data;
 				});
 		}
+
+		vm.data;
+		getAllData();
+
+		$scope.$on('contentToBeDisplayed', function(event, data) {
+			vm.data = allData[data.contentCategory][data.contentToBeDisplayed];
+		});
 	}
 })();
