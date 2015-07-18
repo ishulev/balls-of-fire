@@ -22,7 +22,7 @@
 				.catch(getDataFailed);
 
 			function getDataComplete(response) {
-				return response.data.subcontent;
+				return response.data;
 			}
 
 			function getDataFailed(error) {
