@@ -8,13 +8,9 @@ html(ng-app="app" ng-strict-di)
 					button.btn.btn-lg.btn-success(item-identifier=1 button-directive) Interests
 					section.row.hidden(button-parent-directive)
 						div.col-xs-3
-							button.btn.btn-success(item-identifier=1 button-directive) Workflow
-							section.row.hidden.text-justify.text-holder
-								div.col-xs-12(content-directive item-identifier="workflow")
+							button.btn.btn-success(item-identifier=1 content-to-be-displayed="workflow" content-category="interests" button-directive) Workflow
 						div.col-xs-3
-							button.btn.btn-success(item-identifier=2 button-directive) Front-end
-							section.row.hidden.text-justify.text-holder
-								div.col-xs-12(content-directive item-identifier="frontend")
+							button.btn.btn-success(item-identifier=2 button-directive content-to-be-displayed="frontend" content-category="interests") Front-end
 						div.col-xs-3
 							button.btn.btn-success(item-identifier=3 button-directive) Btn #3
 							section.row.hidden
@@ -49,5 +45,9 @@ html(ng-app="app" ng-strict-di)
 							button.btn.btn-circle.btn-success(item-identifier=3 button-directive) Btn #3
 							section.row.hidden
 								h2 Test
+		div.container-fluid
+			div.container
+				section.row
+					div.col-xs-12(content-directive)
 		footer
 			script(src="/javascript/scripts.js")
