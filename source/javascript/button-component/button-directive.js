@@ -86,6 +86,19 @@
 					contentVariables.contentCategory = attrs.contentCategory;
 					$rootScope.$emit('contentToBeDisplayed', contentVariables);
 				}
+				else{
+					var childrenButtons = element.next().children().children();
+					for(var i = 0; i < childrenButtons.length; i++)
+					{
+						var currentElement = wrapElement(childrenButtons[i]);
+						if(currentElement.hasClass('active'))
+						{
+							buttParentController.buttonClose = currentElement;
+							scope.$apply();
+						}
+					}
+				}
+
 				if(buttParentController.active === element)
 				{
 					buttParentController.buttonClose = element;
