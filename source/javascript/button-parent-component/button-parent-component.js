@@ -114,7 +114,6 @@
 					var currentlySelectedButtonParent = newValue.parent();
 					if(oldValue)
 					{
-						console.log(oldValue);
 						var previouslySelectedButtonParent = oldValue.parent();
 						elements.previouslySelectedButtonParent = previouslySelectedButtonParent;
 						var previousActiveButton = wrapElement(previouslySelectedButtonParent.children()[0]);
