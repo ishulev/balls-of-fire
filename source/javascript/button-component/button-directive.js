@@ -101,7 +101,14 @@
 
 				if(buttParentController.active === element)
 				{
-					buttParentController.buttonClose = element;
+					if(buttParentController.buttonClose === buttParentController.active)
+					{
+						buttParentController.active = null;
+						scope.$apply();
+						buttParentController.active = element;
+					}
+					else
+						buttParentController.buttonClose = element;
 				}
 				else
 				{

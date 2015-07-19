@@ -107,13 +107,14 @@
 		function linkFunc(scope, el, attr, ctrl) {
 			scope.$watch('bpc.active', function(newValue, oldValue){
 				//The two values are equal on directive init
-				if(newValue !== oldValue)
+				if(newValue !== oldValue && newValue)
 				{
 					var elements = {};
 					//These are the main button parent elements
 					var currentlySelectedButtonParent = newValue.parent();
 					if(oldValue)
 					{
+						console.log(oldValue);
 						var previouslySelectedButtonParent = oldValue.parent();
 						elements.previouslySelectedButtonParent = previouslySelectedButtonParent;
 						var previousActiveButton = wrapElement(previouslySelectedButtonParent.children()[0]);
@@ -132,7 +133,8 @@
 					//Determine whether this is the first time an element from that group has been clicked
 					var firstClick = false;
 					var classToCheckIfFirst = classPrefix.concat((12/numberOfStructureElements).toString());
-					if(currentlySelectedButtonParent.hasClass(classToCheckIfFirst))
+					//oldValue is null only if the button is being reopened after being closed
+					if(currentlySelectedButtonParent.hasClass(classToCheckIfFirst) || oldValue == null)
 						firstClick = true;
 
 					//Actual buttons
@@ -155,12 +157,10 @@
 					{
 						toggleAestheticClasses(currentActiveButton);
 						toggleAestheticClasses(previousActiveButton);
-
-						toggleVisibilityClasses(contentToBeDisplayed);
 						toggleVisibilityClasses(contentToBeHidden);
+						toggleVisibilityClasses(contentToBeDisplayed);
 						
 					}
-
 				}
 			});
 			scope.$watch('bpc.buttonClose', function(element, oldValue){
@@ -179,6 +179,8 @@
 					var structureClassesToToggle = calculateStructureClasses(numberOfStructureElements);
 					structureClassesToToggle = addClassPrefix(structureClassesToToggle, classPrefix);
 					toggleStructureClasses(elements, structureClassesToToggle, true);
+					toggleAestheticClasses(element);
+					toggleVisibilityClasses(element.next());
 				}
 			});
 		}
