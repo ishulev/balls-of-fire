@@ -36,7 +36,7 @@
 		getAllData();
 
 		$scope.$on('contentToBeDisplayed', function(event, data) {
-			vm.data = allData[data.contentCategory][data.contentToBeDisplayed];
+			vm.data = allData[data.contentCategory][data.contentToBeDisplayed + '.html'];
 		});
 	}
 })();

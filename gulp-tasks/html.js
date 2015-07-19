@@ -12,7 +12,7 @@ var config = {
 
 gulp.task('html-build', function() {
 	return gulp
-		.src(path.join(config.sourceDir, 'jade/**/*.jade'))
+		.src(path.join(config.sourceDir, 'jade/index.jade'))
 		.pipe(jade())
 		.pipe(concat('index.html'))
 		.pipe(sourcemaps.write())
