@@ -109,14 +109,19 @@
 				//The two values are equal on directive init
 				if(newValue !== oldValue)
 				{
+					var elements = {};
 					//These are the main button parent elements
-					var currentlySelectedButtonParent = wrapElement(el.children()[newValue - 1]);
-					var previouslySelectedButtonParent = wrapElement(el.children()[oldValue - 1]);
+					var currentlySelectedButtonParent = newValue.parent();
+					if(oldValue)
+					{
+						var previouslySelectedButtonParent = oldValue.parent();
+						elements.previouslySelectedButtonParent = previouslySelectedButtonParent;
+						var previousActiveButton = wrapElement(previouslySelectedButtonParent.children()[0]);
+						var contentToBeHidden = wrapElement(previouslySelectedButtonParent.children()[1]);
+					}
 					
 					var classPrefix = "col-xs-";
-					var elements = {};
 					elements.currentlySelectedButtonParent = currentlySelectedButtonParent;
-					elements.previouslySelectedButtonParent = previouslySelectedButtonParent;
 					elements.buttonParentElements = wrapElement(currentlySelectedButtonParent.parent()).children();
 
 					//Determine the number of children in order to estimate the structure toggle class
@@ -132,11 +137,9 @@
 
 					//Actual buttons
 					var currentActiveButton = wrapElement(currentlySelectedButtonParent.children()[0]);
-					var previousActiveButton = wrapElement(previouslySelectedButtonParent.children()[0]);
 
 					//Content below buttons, which is a sibling to the button in DOM language
 					var contentToBeDisplayed = wrapElement(currentlySelectedButtonParent.children()[1]);
-					var contentToBeHidden = wrapElement(previouslySelectedButtonParent.children()[1]);
 					
 					//Call functions for each of the assigned elements
 					toggleStructureClasses(elements, structureClassesToToggle, firstClick);
@@ -183,6 +186,5 @@
 	controller.$inject = ['$scope'];
 
 	function controller($scope) {
-		$scope.bpc.active = 2;
 	}
 })();
