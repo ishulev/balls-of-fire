@@ -78,21 +78,7 @@
 		}
 
 		function link(scope, element, attrs, buttParentController) {
-			var secondary = false;
 			element.on('click', function() {
-				if(buttParentController.active !== scope.itemIdentifier)
-				{
-					buttParentController.active = scope.itemIdentifier;
-					scope.$apply();
-				}
-				else if(buttParentController.active == scope.itemIdentifier && secondary == false){
-					buttParentController.buttonClose = element;
-					scope.$apply();
-				}
-				else
-				{
-					console.log(secondary);
-				}
 				if(attrs.contentToBeDisplayed)
 				{
 					var contentVariables = {};
@@ -100,6 +86,15 @@
 					contentVariables.contentCategory = attrs.contentCategory;
 					$rootScope.$emit('contentToBeDisplayed', contentVariables);
 				}
+				if(buttParentController.active === element)
+				{
+					buttParentController.buttonClose = element;
+				}
+				else
+				{
+					buttParentController.active = element;
+				}
+				scope.$apply();
 				//Needed to let the parent scope know of the change and trigger the $watch
 				//Documentation: http://www.sitepoint.com/understanding-angulars-apply-digest/
 			});
