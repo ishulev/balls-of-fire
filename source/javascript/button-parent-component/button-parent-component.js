@@ -72,9 +72,14 @@
 		function toggleStructureClasses(elements, structureClassesToToggle, firstClick) {
 			if(firstClick)
 			{
+				var once = false;
 				elements.currentlySelectedButtonParent.toggleClass(structureClassesToToggle.initialStructureClassToToggle);
 				elements.currentlySelectedButtonParent.toggleClass(structureClassesToToggle.activeStructureClassToToggle);
-				elements.currentlySelectedButtonParent.toggleClass('added-margin');
+				if(!elements.currentlySelectedButtonParent.hasClass('added-margin'))
+				{
+					once = true;
+					elements.currentlySelectedButtonParent.toggleClass('added-margin');
+				}
 
 				for(var i=0; i < elements.buttonParentElements.length; i++)
 				{
@@ -85,6 +90,8 @@
 						element.toggleClass(structureClassesToToggle.defaultStructureClassToToggle);
 					}
 				}
+				if(elements.currentlySelectedButtonParent.hasClass('added-margin') && !once)
+					elements.currentlySelectedButtonParent.toggleClass('added-margin');
 			}
 			else
 			{
@@ -151,6 +158,24 @@
 						
 					}
 
+				}
+			});
+			scope.$watch('bpc.buttonClose', function(element, oldValue){
+				if(element !== oldValue)
+				{
+					//These are the main button parent elements
+					var currentlySelectedButtonParent = element.parent();
+					
+					var classPrefix = "col-xs-";
+					var elements = {};
+					elements.currentlySelectedButtonParent = currentlySelectedButtonParent;
+					elements.buttonParentElements = wrapElement(currentlySelectedButtonParent.parent()).children();
+
+					//Determine the number of children in order to estimate the structure toggle class
+					var numberOfStructureElements = elements.buttonParentElements.length;
+					var structureClassesToToggle = calculateStructureClasses(numberOfStructureElements);
+					structureClassesToToggle = addClassPrefix(structureClassesToToggle, classPrefix);
+					toggleStructureClasses(elements, structureClassesToToggle, true);
 				}
 			});
 		}

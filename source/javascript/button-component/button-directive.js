@@ -86,19 +86,8 @@
 					scope.$apply();
 				}
 				else if(buttParentController.active == scope.itemIdentifier && secondary == false){
-					var currentlySelectedButtonParent = element.parent();
-					var parentChildren = wrapElement(currentlySelectedButtonParent.parent()).children();
-					var numberOfStructureElements = parentChildren.length;
-					var structureClassesToToggle = calculateStructureClasses(numberOfStructureElements);
-					structureClassesToToggle = addClassPrefix(structureClassesToToggle, 'col-xs-');
-					var elements = {};
-					elements.currentlySelectedButtonParent = currentlySelectedButtonParent;
-					elements.buttonParentElements = parentChildren;
-					toggleStructureClasses(elements, structureClassesToToggle);
-					element.toggleClass('active');
-					element.toggleClass('btn-info');
-					element.toggleClass('btn-success');
-					secondary = true;
+					buttParentController.buttonClose = element;
+					scope.$apply();
 				}
 				else
 				{
