@@ -8,13 +8,16 @@
 		.directive('buttonDirective', buttonDirectiveFunction);
 	buttonDirectiveFunction.$inject = ['$rootScope'];
 
+	function Controller() {
+		this.showContent = true;
+	}
+
 	function buttonDirectiveFunction($rootScope) {
 		var directive = {
 			restict: 'EA',
 			link: link,
-			scope: {
-				itemIdentifier: '@'
-			},
+			scope: true,
+			controller: Controller,
 			require: '^buttonParentDirective'
 		};
 		return directive;
@@ -27,13 +30,19 @@
 		}
 
 		function link(scope, element, attrs, buttParentController) {
+			var closed = true;
 			element.on('click', function() {
 				if(attrs.contentToBeDisplayed)
 				{
 					var contentVariables = {};
 					contentVariables.contentToBeDisplayed = attrs.contentToBeDisplayed;
 					contentVariables.contentCategory = attrs.contentCategory;
-					$rootScope.$emit('contentToBeDisplayed', contentVariables);
+					if(element.hasClass('active'))
+					{
+						$rootScope.$emit('contentToBeDisplayed', null);
+					}
+					else
+						$rootScope.$emit('contentToBeDisplayed', contentVariables);
 				}
 				else{
 					var childrenButtons = element.next().children().children();
@@ -42,22 +51,30 @@
 						var currentElement = wrapElement(childrenButtons[i]);
 						if(currentElement.hasClass('active'))
 						{
+							$rootScope.$emit('contentToBeDisplayed', null);
 							buttParentController.buttonClose = currentElement;
 							scope.$apply();
 						}
 					}
+					$rootScope.$emit('contentToBeDisplayed', null);
 				}
 
 				if(buttParentController.active === element)
-				{
+				{	
+					//Button has been opened, closed and now being opened again
+					//this occurs every time after the below "else" is fired
 					if(buttParentController.buttonClose === buttParentController.active)
 					{
 						buttParentController.active = null;
 						scope.$apply();
 						buttParentController.active = element;
 					}
+					//this occurs after the first time content has been hidden, after closing
 					else
+					{
+						// $rootScope.$emit('contentToBeDisplayed', null);
 						buttParentController.buttonClose = element;
+					}
 				}
 				else
 				{
