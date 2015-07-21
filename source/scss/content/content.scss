@@ -3,5 +3,13 @@
 	color: white;
 	padding-top: 10px;
 	margin-top: 10px;
-	box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.250);
+	box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.25);
+}
+
+.main-content {
+	opacity: 1;
+}
+
+.main-content.hide-content {
+	opacity: 0;
 }

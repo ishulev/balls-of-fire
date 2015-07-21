@@ -13,7 +13,7 @@
 			restict: 'EA',
 			controller: Controller,
 			controllerAs: 'vm',
-			template: '<span ng-hide="vm.hide" ng-bind-html="vm.data"></span>'
+			template: '<span class="main-content" ng-bind-html="vm.data"></span>'
 		};
 		return directive;
 	}
@@ -46,10 +46,6 @@
 				vm.hide = false;
 				vm.data = allData[data.contentCategory][data.contentToBeDisplayed + '.html'];
 			}
-		});
-		$scope.$on('hideContent', function(event, data) {
-			console.log(data);
-			vm.hide = data;
 		});
 	}
 })();

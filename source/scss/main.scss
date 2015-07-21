@@ -2,5 +2,9 @@
 @import "mixins";
 
 * {
-	@include transition(all 0.5s ease);
+	@include transition(all 0.5s ease-in-out);
+}
+
+a:active, a:focus, button:active, button:focus {
+	outline: none!important;
 }
