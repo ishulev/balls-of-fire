@@ -72,9 +72,14 @@
 		function toggleStructureClasses(elements, structureClassesToToggle, firstClick) {
 			if(firstClick)
 			{
+				var once = false;
 				elements.currentlySelectedButtonParent.toggleClass(structureClassesToToggle.initialStructureClassToToggle);
 				elements.currentlySelectedButtonParent.toggleClass(structureClassesToToggle.activeStructureClassToToggle);
-				elements.currentlySelectedButtonParent.toggleClass('added-margin');
+				if(!elements.currentlySelectedButtonParent.hasClass('added-margin'))
+				{
+					once = true;
+					elements.currentlySelectedButtonParent.toggleClass('added-margin');
+				}
 
 				for(var i=0; i < elements.buttonParentElements.length; i++)
 				{
@@ -85,6 +90,8 @@
 						element.toggleClass(structureClassesToToggle.defaultStructureClassToToggle);
 					}
 				}
+				if(elements.currentlySelectedButtonParent.hasClass('added-margin') && !once)
+					elements.currentlySelectedButtonParent.toggleClass('added-margin');
 			}
 			else
 			{
@@ -100,16 +107,21 @@
 		function linkFunc(scope, el, attr, ctrl) {
 			scope.$watch('bpc.active', function(newValue, oldValue){
 				//The two values are equal on directive init
-				if(newValue !== oldValue)
+				if(newValue !== oldValue && newValue)
 				{
+					var elements = {};
 					//These are the main button parent elements
-					var currentlySelectedButtonParent = wrapElement(el.children()[newValue - 1]);
-					var previouslySelectedButtonParent = wrapElement(el.children()[oldValue - 1]);
+					var currentlySelectedButtonParent = newValue.parent();
+					if(oldValue)
+					{
+						var previouslySelectedButtonParent = oldValue.parent();
+						elements.previouslySelectedButtonParent = previouslySelectedButtonParent;
+						var previousActiveButton = wrapElement(previouslySelectedButtonParent.children()[0]);
+						var contentToBeHidden = wrapElement(previouslySelectedButtonParent.children()[1]);
+					}
 					
 					var classPrefix = "col-xs-";
-					var elements = {};
 					elements.currentlySelectedButtonParent = currentlySelectedButtonParent;
-					elements.previouslySelectedButtonParent = previouslySelectedButtonParent;
 					elements.buttonParentElements = wrapElement(currentlySelectedButtonParent.parent()).children();
 
 					//Determine the number of children in order to estimate the structure toggle class
@@ -120,16 +132,15 @@
 					//Determine whether this is the first time an element from that group has been clicked
 					var firstClick = false;
 					var classToCheckIfFirst = classPrefix.concat((12/numberOfStructureElements).toString());
-					if(currentlySelectedButtonParent.hasClass(classToCheckIfFirst))
+					//oldValue is null only if the button is being reopened after being closed
+					if(currentlySelectedButtonParent.hasClass(classToCheckIfFirst) || oldValue == null)
 						firstClick = true;
 
 					//Actual buttons
 					var currentActiveButton = wrapElement(currentlySelectedButtonParent.children()[0]);
-					var previousActiveButton = wrapElement(previouslySelectedButtonParent.children()[0]);
 
 					//Content below buttons, which is a sibling to the button in DOM language
 					var contentToBeDisplayed = wrapElement(currentlySelectedButtonParent.children()[1]);
-					var contentToBeHidden = wrapElement(previouslySelectedButtonParent.children()[1]);
 					
 					//Call functions for each of the assigned elements
 					toggleStructureClasses(elements, structureClassesToToggle, firstClick);
@@ -145,12 +156,30 @@
 					{
 						toggleAestheticClasses(currentActiveButton);
 						toggleAestheticClasses(previousActiveButton);
-
-						toggleVisibilityClasses(contentToBeDisplayed);
 						toggleVisibilityClasses(contentToBeHidden);
+						toggleVisibilityClasses(contentToBeDisplayed);
 						
 					}
+				}
+			});
+			scope.$watch('bpc.buttonClose', function(element, oldValue){
+				if(element !== oldValue)
+				{
+					//These are the main button parent elements
+					var currentlySelectedButtonParent = element.parent();
+					
+					var classPrefix = "col-xs-";
+					var elements = {};
+					elements.currentlySelectedButtonParent = currentlySelectedButtonParent;
+					elements.buttonParentElements = wrapElement(currentlySelectedButtonParent.parent()).children();
 
+					//Determine the number of children in order to estimate the structure toggle class
+					var numberOfStructureElements = elements.buttonParentElements.length;
+					var structureClassesToToggle = calculateStructureClasses(numberOfStructureElements);
+					structureClassesToToggle = addClassPrefix(structureClassesToToggle, classPrefix);
+					toggleStructureClasses(elements, structureClassesToToggle, true);
+					toggleAestheticClasses(element);
+					toggleVisibilityClasses(element.next());
 				}
 			});
 		}
@@ -158,6 +187,5 @@
 	controller.$inject = ['$scope'];
 
 	function controller($scope) {
-		$scope.bpc.active = 2;
 	}
 })();

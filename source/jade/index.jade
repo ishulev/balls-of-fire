@@ -5,46 +5,30 @@ html(ng-app="app" ng-strict-di)
 		div.container
 			section.row(button-parent-directive)
 				div.col-xs-4.text-center
-					button.btn.btn-lg.btn-success(item-identifier=1 button-directive) Interests
+					button.btn.btn-lg.btn-success(button-directive) Interests
 					section.row.hidden(button-parent-directive)
-						div.col-xs-3
-							button.btn.btn-success(item-identifier=1 content-to-be-displayed="workflow" content-category="interests" button-directive) Workflow
-						div.col-xs-3
-							button.btn.btn-success(item-identifier=2 button-directive content-to-be-displayed="frontend" content-category="interests") Front-end
-						div.col-xs-3
-							button.btn.btn-success(item-identifier=3 button-directive) Btn #3
-							section.row.hidden
-								h2 Test
-						div.col-xs-3
-							button.btn.btn-success(item-identifier=4 button-directive) Btn #4
-							section.row.hidden
-								h2 Test
+						div.col-xs-4
+							button.btn.btn-success(content-to-be-displayed="workflow" content-category="interests" button-directive) Workflow
+						div.col-xs-4
+							button.btn.btn-success(button-directive content-to-be-displayed="frontend" content-category="interests") Front-end
+						div.col-xs-4
+							button.btn.btn-success(button-directive content-to-be-displayed="backend" content-category="interests") Back-end
 				div.col-xs-4.text-center
-					img.img-circle(src="/images/profile_photo_phabulous.jpg" item-identifier=2 button-directive)
+					img.img-circle(src="/images/profile_photo_phabulous.jpg" button-directive)
 					section.row.hidden(button-parent-directive)
 						div.col-xs-6
-							button.btn.btn-circle.btn-success(item-identifier=1 button-directive) Btn #1
-							section.row.hidden
-								h2 Test
+							button.btn.btn-circle.btn-success(button-directive content-to-be-displayed="boring-facts" content-category="about-me") Facts
 						div.col-xs-6
-							button.btn.btn-circle.btn-success(item-identifier=2 button-directive) Btn #2
-							section.row.hidden
-								h2 Test
+							button.btn.btn-circle.btn-success(button-directive content-to-be-displayed="story" content-category="about-me") Story
 				div.col-xs-4.text-center
-					button.btn.btn-lg.btn-success(item-identifier=3 button-directive) Skills
+					button.btn.btn-lg.btn-success(button-directive) Skills
 					section.row.hidden(button-parent-directive)
 						div.col-xs-4
-							button.btn.btn-circle.btn-success(item-identifier=1 button-directive) Btn #1
-							section.row.hidden
-								h2 Test
+							button.btn.btn-circle.btn-success(button-directive content-to-be-displayed="css" content-category="technologies") CSS
 						div.col-xs-4
-							button.btn.btn-circle.btn-success(item-identifier=2 button-directive) Btn #2
-							section.row.hidden
-								h2 Test
+							button.btn.btn-circle.btn-success(button-directive content-to-be-displayed="javascript" content-category="technologies") JS
 						div.col-xs-4
-							button.btn.btn-circle.btn-success(item-identifier=3 button-directive) Btn #3
-							section.row.hidden
-								h2 Test
+							button.btn.btn-circle.btn-success(button-directive content-to-be-displayed="php" content-category="technologies") PHP
 		div.container-fluid
 			div.container
 				section.row

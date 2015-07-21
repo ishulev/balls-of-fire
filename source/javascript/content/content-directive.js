@@ -13,7 +13,7 @@
 			restict: 'EA',
 			controller: Controller,
 			controllerAs: 'vm',
-			template: '<span ng-bind-html="vm.data"></span>'
+			template: '<span ng-hide="vm.hide" ng-bind-html="vm.data"></span>'
 		};
 		return directive;
 	}
@@ -33,10 +33,23 @@
 		}
 
 		vm.data;
+		vm.hide = true;
 		getAllData();
 
 		$scope.$on('contentToBeDisplayed', function(event, data) {
-			vm.data = allData[data.contentCategory][data.contentToBeDisplayed + '.html'];
+			if(data == null)
+			{
+				vm.hide = true;
+			}
+			else
+			{
+				vm.hide = false;
+				vm.data = allData[data.contentCategory][data.contentToBeDisplayed + '.html'];
+			}
+		});
+		$scope.$on('hideContent', function(event, data) {
+			console.log(data);
+			vm.hide = data;
 		});
 	}
 })();
