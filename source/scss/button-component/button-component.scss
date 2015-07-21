@@ -1,5 +1,48 @@
 .btn-circle {
 	border-radius: 50%;
-	width: 80px;
-	height: 80px;
+	width: 70px;
+	height: 70px;
+	padding: 0;
+	background: none;
+	color: black;
+	border-top: 1px solid #6C7A89;
+}
+
+.btn-circle:after{
+	width: 0;
+	height: 0;
+	border-left: 15px solid transparent;
+	border-right: 15px solid transparent;
+	border-top: 30px solid transparent;
+	content: "";
+	display: block;
+	margin: 0 auto;
+	position: relative;
+}
+
+.btn-circle.active{
+	padding: 25px 0 0 0;
+	background: #6C7A89;
+	box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.250);
+}
+
+.btn-circle.active:after {
+	width: 0;
+	height: 0;
+	border-left: 15px solid transparent;
+	border-right: 15px solid transparent;
+	border-top: 30px solid #6C7A89;
+	content: "";
+	display: block;
+	margin: 0 auto;
+	position: relative;
+	top: 20px;
+}
+
+.img-circle{
+	width: 100px;
+}
+
+.img-circle.active {
+	width: 200px;
 }
