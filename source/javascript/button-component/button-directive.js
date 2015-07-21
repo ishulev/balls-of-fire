@@ -44,6 +44,9 @@
 					else
 						$rootScope.$emit('contentToBeDisplayed', contentVariables);
 				}
+				//this means that a main button has been clicked 
+				//it should close all child active buttons
+				//and also hide their content
 				else{
 					var childrenButtons = element.next().children().children();
 					for(var i = 0; i < childrenButtons.length; i++)
@@ -72,7 +75,6 @@
 					//this occurs after the first time content has been hidden, after closing
 					else
 					{
-						// $rootScope.$emit('contentToBeDisplayed', null);
 						buttParentController.buttonClose = element;
 					}
 				}
