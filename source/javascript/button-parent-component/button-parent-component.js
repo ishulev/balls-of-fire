@@ -26,8 +26,6 @@
 
 		function toggleAestheticClasses(element) {
 			element.toggleClass('active');
-			element.toggleClass('btn-success');
-			element.toggleClass('btn-info');
 		}
 
 		function toggleVisibilityClasses(element) {

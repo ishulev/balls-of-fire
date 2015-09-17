@@ -1,8 +1,10 @@
 @import "bootstrap";
+@import "mixins";
 
 * {
-	-webkit-transition: all 0.2s ease;
-	-moz-transition:    all 0.2s ease;
-	-ms-transition:     all 0.2s ease;
-	-o-transition:      all 0.2s ease;
+	@include transition(all 0.5s ease-in-out);
+}
+
+a:active, a:focus, button:active, button:focus {
+	outline: none!important;
 }
