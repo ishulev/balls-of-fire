@@ -18,9 +18,9 @@
 		return directive;
 	}
 
-	Controller.$inject = ['$scope', 'contentFactory'];
+	Controller.$inject = ['$scope', '$sce', 'contentFactory'];
 
-	function Controller($scope, contentFactory) {
+	function Controller($scope, $sce, contentFactory) {
 		var vm = this;
 		var allData = {};
 
@@ -44,7 +44,11 @@
 			else
 			{
 				vm.hide = false;
-				vm.data = allData[data.contentCategory][data.contentToBeDisplayed + '.html'];
+				var data = allData[data.contentCategory][data.contentToBeDisplayed + '.html'];
+				if(data.search('name="my-age"') !==-1)
+					vm.data = $sce.trustAsHtml(data);
+				else
+					vm.data = data;
 			}
 		});
 	}
