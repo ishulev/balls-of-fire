@@ -19,7 +19,7 @@ gulp.task('server-start', function() {
 gulp.task('watch', function() {
 	gulp.watch(path.join(config.sourceDir, 'javascript/**/*.js'), ['jshint', 'js-build']);
 	gulp.watch(path.join(config.sourceDir, 'scss/**/*.scss'), ['css-build']);
-	gulp.watch(path.join(config.sourceDir, 'jade/**/*.jade'), ['html-build']);
+	gulp.watch(path.join(config.sourceDir, 'jade/**/*.jade'), ['html-build', 'data']);
 	gulp.watch(path.join(config.publicDir, '**/*'), server.notify);
 });
 
