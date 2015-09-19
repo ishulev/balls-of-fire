@@ -131,7 +131,7 @@
 					var firstClick = false;
 					var classToCheckIfFirst = classPrefix.concat((12/numberOfStructureElements).toString());
 					//oldValue is null only if the button is being reopened after being closed
-					if(currentlySelectedButtonParent.hasClass(classToCheckIfFirst) || oldValue == null)
+					if(currentlySelectedButtonParent.hasClass(classToCheckIfFirst) || oldValue === null)
 						firstClick = true;
 
 					//Actual buttons
