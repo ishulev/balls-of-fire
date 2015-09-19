@@ -32,25 +32,25 @@
 				});
 		}
 
-		vm.data;
+		vm.data = {};
 		vm.hide = true;
 		getAllData();
 
 		$scope.$on('contentToBeDisplayed', function(event, data) {
-			if(data == null)
+			if(data === null)
 			{
 				vm.hide = true;
 			}
 			else
 			{
 				vm.hide = false;
-				var data = allData[data.contentCategory][data.contentToBeDisplayed + '.html'];
+				var localData = allData[data.contentCategory][data.contentToBeDisplayed + '.html'];
 				//Checks whether the loaded data has the following attribute,
 				//which is only present for the "facts" section
-				if(data.search('name="my-age"') !==-1)
-					vm.data = $sce.trustAsHtml(data);
+				if(localData.search('name="my-age"') !==-1)
+					vm.data = $sce.trustAsHtml(localData);
 				else
-					vm.data = data;
+					vm.data = localData;
 			}
 		});
 	}
