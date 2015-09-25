@@ -1,3 +1,7 @@
 node_modules
 bower_components
-app
+gulp-tasks
+bower.json
+gulpfile.js
+output.json
+package.json
