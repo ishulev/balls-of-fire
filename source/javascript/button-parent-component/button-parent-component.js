@@ -28,10 +28,6 @@
 			element.toggleClass('active');
 		}
 
-		function toggleVisibilityClasses(element) {
-			element.toggleClass('hidden');
-		}
-
 		function addClassPrefix(structureClasses, classPrefix)
 		{
 			structureClasses.initialStructureClassToToggle = classPrefix.concat(structureClasses.initialStructureClassToToggle.toString());
@@ -147,15 +143,12 @@
 					{
 						
 						toggleAestheticClasses(currentActiveButton);
-						toggleVisibilityClasses(contentToBeDisplayed);
 
 					}
 					else
 					{
 						toggleAestheticClasses(currentActiveButton);
 						toggleAestheticClasses(previousActiveButton);
-						toggleVisibilityClasses(contentToBeHidden);
-						toggleVisibilityClasses(contentToBeDisplayed);
 						
 					}
 				}
@@ -177,7 +170,6 @@
 					structureClassesToToggle = addClassPrefix(structureClassesToToggle, classPrefix);
 					toggleStructureClasses(elements, structureClassesToToggle, true);
 					toggleAestheticClasses(element);
-					toggleVisibilityClasses(element.next());
 				}
 			});
 		}
