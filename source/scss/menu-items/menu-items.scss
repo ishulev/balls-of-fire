@@ -1,12 +1,15 @@
 .added-margin {
 	margin-top: 100px;
 }
-section.row div:nth-child(2n) {
+section.row div:nth-child(2) {
 	background: #e67f24;
 }
 section.row div:first-child {
 	background: #2ecc71;
 }
-section.row div:last-child {
+section.row div:nth-child(3) {
 	background: #95a5a6;
+}
+section.row div:nth-child(4) {
+	background: #3498db;
 }
