@@ -33,9 +33,9 @@ gulp
 				path.join(config.sourceDir, 'javascript/core.js'),
 				path.join(config.sourceDir, 'javascript/**/*.js')])
 			.pipe(sourcemaps.init())
-			.pipe(concat('scripts.js'))
 			//only uglify if gulp is ran with '--type production'
 			.pipe(gutil.env.type === 'production' ? uglify() : gutil.noop()) 
+			.pipe(concat('scripts.js'))
 			.pipe(sourcemaps.write())
 			.pipe(gulp.dest(path.join(config.publicDir, 'javascript')));
 	});
