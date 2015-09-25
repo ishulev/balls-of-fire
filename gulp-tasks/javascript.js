@@ -10,6 +10,8 @@ var concat		= require('gulp-concat'),
 var config = {
 	angularDir: './bower_components/angular',
 	angularSanitizeDir: './bower_components/angular-sanitize',
+	bootstrapDir: './bower_components/bootstrap-sass/assets',
+	jqueryDir: './bower_components/jquery',
 	publicDir: './app',
 	sourceDir: './source'
 };
@@ -24,6 +26,8 @@ gulp
 	.task('js-build', function() {
 		return gulp
 			.src([
+				path.join(config.jqueryDir, 'dist/jquery.js'),
+				path.join(config.bootstrapDir, 'javascripts/bootstrap.js'),
 				path.join(config.angularDir, 'angular.js'),
 				path.join(config.angularSanitizeDir, 'angular-sanitize.js'),
 				path.join(config.sourceDir, 'javascript/core.js'),
